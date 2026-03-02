@@ -1,116 +1,142 @@
 # 搭建个人博客
 
-您是否想拥有自己的技术博客，或者文档站点？本工具将帮助您生成博客和文档的纯静态站点，让你可以轻松的部署到任何位置。
-EasyDocs是一个开源项目，托管在Github上。我们可以通过以下步骤将项目Clone（或Fork）一份到自己的Github仓库：
+你是否想拥有自己的技术博客，或者文档站点？本工具将帮助你生成博客和文档的纯静态站点，让你可以轻松部署到任意位置。  
 
-1. 打开EasyDocs的Github仓库页面，地址为：(https://github.com/AterDev/EasyDocs/)
+EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将项目 Clone（或 Fork）到自己的 Github 仓库，快速搭建专属静态博客 / 文档站。
+
+## 搭建过程
+
+1. 获取 EasyDocs 项目源码
+
+    打开 EasyDocs 的 Github 仓库页面，地址为：(https://github.com/AterDev/EasyDocs/)
 
 	![show](如何使用EasyDocs搭建个人博客/点击Tag.png)
-	> 图1：点击Tag
 
 	![show](如何使用EasyDocs搭建个人博客/下载一个发布版本.png)
-	> 图2：下载一个发布版本
 
 	![show](如何使用EasyDocs搭建个人博客/文件结构.png)
-	> 图3：解压或者克隆后的文件结构说明
-  
+
+
 2. 修改webinfo.json配置文件
 
+    找到项目根目录的webinfo.json文件，根据自身需求修改配置项，关键项需严格按要求配置，代码如下：
+
 	```json
-	{
-	  "Name": "YZH",// 博客名称，显示在主页顶部导航
-	  "Description": "工作笔记",// 说明，显示在主页顶部中间
-	  "AuthorName": "小严",// 作者名称，显示在博客列表
-	  "BaseHref": "/EasyDocs/",// （切记）一定要和Github仓库的名字保持一致，生成站点时会自动添加到路径前面
-	  "Branch": "master",
-	  "Logo": "logo.png",
-	  "ContentPath": "./Content",// markdown文档存放路径，工具会扫描该目录下的markdown文件并生成站点
-	  "OutputPath": "./WebApp",
-	  "Domain": "https://Yzh-Neuron.github.io/", // 域名，生成sitemap使用，不生成则留空
-	  "Keywords": "docs,blog,EasyDocs",
-	}
+	 {
+      "Name": "YZH",// 博客名称，显示在主页顶部导航栏
+      "Description": "工作笔记",// 博客说明，显示在主页顶部中间位置
+      "AuthorName": "小严",// 作者名称，显示在博客列表页文章旁
+      "BaseHref": "/EasyDocs/",// 【重要】务必与Github仓库名称保持一致，生成站点时会自动添加到路径前缀
+      "Branch": "master",// 部署分支，保持默认即可
+      "Logo": "logo.png",// 博客logo图片，放置在项目根目录
+      "ContentPath": "./Content",// markdown文档存放根路径，工具会自动扫描该目录下所有md文件生成站点
+      "OutputPath": "./WebApp",// 静态站点生成输出路径，保持默认即可
+      "Domain": "https://Yzh-Neuron.github.io/", // 自定义域名，生成站点地图sitemap使用，无自定义域名则留空
+      "Keywords": "docs,blog,EasyDocs"// 站点关键词，用于SEO优化
+    }
 	```
-3. 在 __(.\EasyDocs\.github\workflows)__ 文件路径下找到static.yml配置文件并修改
 
-    ```yml
-    # 工作流名称：部署静态内容到 GitHub Pages
-    name: Deploy static content to Pages
+3. 修改 GitHub Actions 部署配置文件
 
-    # 触发条件
-    on:
-      # 当推送到 master 分支时触发(切记一定推送到这个分支才能触发)
-      push:
-        branches: ["master"]
-      # 允许在 GitHub 网页端手动触发工作流
-      workflow_dispatch:
+    在__./EasyDocs/.github/workflows__文件路径下找到static.yml配置文件，按以下内容修改，实现代码推送后的自动化构建与部署：
+    
+	```yml
+      name: Deploy static content to Pages
+      on:
+        push:
+          branches: ["master"]          # 推送到 master 分支时触发
+        workflow_dispatch:               # 支持手动触发
 
-    # 赋予 GITHUB_TOKEN 的权限
-    permissions:
-      contents: read           # 允许读取仓库内容
-      pages: write             # 允许写入 GitHub Pages
-      id-token: write          # 允许使用 OIDC 令牌（用于部署身份验证）
+      permissions:
+        contents: read
+        pages: write
+        id-token: write
 
-    # 并发控制：防止多个部署同时运行
-    concurrency:
-      group: "pages"           # 部署分组为 pages，同一时间只有一个运行
-      cancel-in-progress: false # 如果已有运行中的工作流，不要取消，让当前排队等待
+      concurrency:
+        group: "pages"
+        cancel-in-progress: false
 
-    jobs:
-      # 唯一的部署作业
-      deploy:
-        environment:
-          name: github-pages    # 部署环境名称
-          url: ${{ steps.deployment.outputs.page_url }} # 部署后的 URL，由 deploy-pages 步骤输出
-        runs-on: ubuntu-latest   # 使用最新的 Ubuntu 运行器
+      jobs:
+        deploy:
+          environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+          runs-on: ubuntu-latest
+          steps:
+            - name: Checkout
+              uses: actions/checkout@v4
 
-        steps:
-          # 1. 检出代码
-          - name: Checkout
-            uses: actions/checkout@v4
+            - name: Setup Pages
+              uses: actions/configure-pages@v4
 
-          # 2. 配置 GitHub Pages 环境（设置默认构建参数）
-          - name: Setup Pages
-            uses: actions/configure-pages@v4
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                dotnet-version: '8.x'
 
-          # 3. 安装 .NET SDK（因为 EasyBlog 工具需要 .NET 环境）
-          - name: Dotnet
-            uses: actions/setup-dotnet@v4
-            with:
-              dotnet-version: '8.x'   # 使用 .NET 8.x 版本
+            - name: Install EasyBlog tool
+              run: dotnet tool install -g Ater.EasyBlog --version 1.0.0
 
-          # 4. 安装 EasyBlog 全局工具（版本 1.0.0）
-          - run: dotnet tool install  -g Ater.EasyBlog --version 1.0.0
+            - name: Build site
+              run: ezblog build ./Content ./site
 
-          # 5. 使用 EasyBlog 构建站点：从 Content 目录生成静态文件到 site 目录
-          - run: ezblog build ./Content ./site
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: 'site/'
 
-          # 6. 将生成的 site 目录上传为 GitHub Pages 构件
-          - name: Upload artifact
-            uses: actions/upload-pages-artifact@v3
-            with:
-              path: 'site/'      # 指定上传的目录路径
-
-          # 7. 部署构件到 GitHub Pages
-          - name: Deploy to GitHub Pages
-            id: deployment        # 给此步骤一个 ID，以便后续引用其输出
-            uses: actions/deploy-pages@v4
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
     ```
 
-4. 登录Github，创建一个新的仓库，并启动Github Pages。
+4. 创建 Github 仓库并启用 GitHub Pages
 
+    1. 登录 Github 账号，点击创建新的仓库。<br>
+    2. 仓库名称必须与webinfo.json配置文件中的BaseHref保持一致（如上例中为 EasyDocs）。<br>
+    3. 仓库创建完成后，进入仓库设置页面，找到 GitHub Pages 功能并开启。<br>
+    
     > [!NOTE]
     > 仓库名字和webinfo.json配置文件中的BaseHref保持一致（如上例中为EasyDocs）。
 
-
 	![show](如何使用EasyDocs搭建个人博客/创建一个EasyDocs仓储.png)
-	> 图4：创建一个EasyDocs仓储
-
+ 
  	![show](如何使用EasyDocs搭建个人博客/开启GitHubPages.png)
-	> 图5：开启GitHubPages
 
+5. 提交代码并等待自动化部署
 
-5. 将修改后的文件提交到Github仓库的master分支，等待Github Actions自动构建和部署。
-1. 
-    ![show](如何使用EasyDocs搭建个人博客/提交代码.png)
-    > 图6：提交代码
+    将本地修改后的所有配置文件、项目文件提交并推送到 Github 仓库的 master 分支，随后进入仓库的 Actions 页面，可查看工作流执行状态。
+
+    ![show](如何使用EasyDocs搭建个人博客/工作流已经开始触发，等待部署完成.png)
+   
+    ![show](如何使用EasyDocs搭建个人博客/完成部署.png)
     
+    等待工作流执行完成后，即可通过 GitHub Pages 分配的地址访问自己的个人博客 / 文档站。
+
+## 添加一个博客
+
+博客内容存放在 ./Content 目录下，每篇博客对应一个 Markdown 文件。添加新博客的步骤如下：
+
+1. 创建 Markdown 文件
+在 Content 文件夹中新建一个 .md 文件，例如 my-first-blog.md。文件名将作为 URL 的一部分，建议使用英文、数字和连字符。
+
+2. 编写博客内容
+文件内容采用 Markdown 语法。EasyDocs 支持在文件开头添加 YAML 元数据（Front Matter）来定义标题、日期、分类等信息。示例：
+
+    ```markdown
+        ---
+        title: 我的第一篇博客
+        date: 2025-03-02
+        tags: [教程, EasyDocs]
+        ---
+
+        # 欢迎！
+
+        这是使用 EasyDocs 发布的第一篇文章。  
+        你可以在这里写任何内容，支持 **加粗**、*斜体*、[链接](https://example.com) 等标准 Markdown 语法。
+
+        ## 插入图片
+        ![图片说明](图片路径.png)
+
+        > 引用一段话。
+    ```
