@@ -7,20 +7,13 @@ EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将
 ## 搭建过程
 
 1. 获取 EasyDocs 项目源码
-
     打开 EasyDocs 的 Github 仓库页面，地址为：(https://github.com/AterDev/EasyDocs/)
-
 	![show](如何使用EasyDocs搭建个人博客/点击Tag.png)
-
 	![show](如何使用EasyDocs搭建个人博客/下载一个发布版本.png)
-
 	![show](如何使用EasyDocs搭建个人博客/文件结构.png)
 
-
 2. 修改webinfo.json配置文件
-
     找到项目根目录的webinfo.json文件，根据自身需求修改配置项，关键项需严格按要求配置，代码如下：
-
 	```json
 	 {
       "Name": "YZH",// 博客名称，显示在主页顶部导航栏
@@ -35,11 +28,8 @@ EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将
       "Keywords": "docs,blog,EasyDocs"// 站点关键词，用于SEO优化
     }
 	```
-
 3. 修改 GitHub Actions 部署配置文件
-
     在__./EasyDocs/.github/workflows__文件路径下找到static.yml配置文件，按以下内容修改，实现代码推送后的自动化构建与部署：
-    
 	```yml
       name: Deploy static content to Pages
       on:
@@ -89,12 +79,10 @@ EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将
               id: deployment
               uses: actions/deploy-pages@v4
     ```
-
 4. 创建 Github 仓库并启用 GitHub Pages
-
-    1. 登录 Github 账号，点击创建新的仓库。<br>
-    2. 仓库名称必须与webinfo.json配置文件中的BaseHref保持一致（如上例中为 EasyDocs）。<br>
-    3. 仓库创建完成后，进入仓库设置页面，找到 GitHub Pages 功能并开启。<br>
+    - 登录 Github 账号，点击创建新的仓库。<br>
+    - 仓库名称必须与webinfo.json配置文件中的BaseHref保持一致（如上例中为 EasyDocs）。<br>
+    - 仓库创建完成后，进入仓库设置页面，找到 GitHub Pages 功能并开启。<br>
     
     > [!NOTE]
     > 仓库名字和webinfo.json配置文件中的BaseHref保持一致（如上例中为EasyDocs）。
@@ -115,13 +103,13 @@ EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将
 
 ## 添加一个博客
 
-博客内容存放在 ./Content 目录下，每篇博客对应一个 Markdown 文件。添加新博客的步骤如下：
+博客内容存放在（__./ Content / blogs__ ）目录下，每篇博客对应一个 Markdown 文件。添加新博客的步骤如下：
 
 1. 创建 Markdown 文件
 在 Content 文件夹中新建一个 .md 文件，例如 my-first-blog.md。文件名将作为 URL 的一部分，建议使用英文、数字和连字符。
 
 2. 编写博客内容
-文件内容采用 Markdown 语法。EasyDocs 支持在文件开头添加 YAML 元数据（Front Matter）来定义标题、日期、分类等信息。示例：
+文件内容采用 Markdown 语法，示例：
 
     ```markdown
         ---
