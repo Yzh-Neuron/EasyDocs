@@ -1,5 +1,5 @@
 {
-  "Name": "YZH",
+  "Name": "YZH_MyBlog",
   "Description": "工作笔记",
   "AuthorName": "小严",
   "BaseHref": "/EasyDocs/",
@@ -8,5 +8,18 @@
   "ContentPath": "./Content",
   "OutputPath": "./WebApp",
   "Domain": "https://Yzh-Neuron.github.io/",
-  "Keywords": "docs,blog,EasyDocs"
+  "Keywords": "docs,blog,EasyDocs",
+  "DocInfos": [
+    {
+      "Name": "EasyDoc",
+      "Languages": [
+        "zh-cn",
+        "en-us"
+      ],
+      "Versions": [
+        "2.0",
+        "1.0"
+      ]
+    }
+  ]
 }
