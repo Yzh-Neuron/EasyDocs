@@ -8,18 +8,5 @@
   "ContentPath": "./Content",
   "OutputPath": "./WebApp",
   "Domain": "https://Yzh-Neuron.github.io/",
-  "Keywords": "docs,blog,EasyDocs",
-  "DocInfos": [
-    {
-      "Name": "EasyDoc",
-      "Languages": [
-        "zh-cn",
-        "en-us"
-      ],
-      "Versions": [
-        "2.0",
-        "1.0"
-      ]
-    }
-  ]
+  "Keywords": "docs,blog,EasyDocs"
 }
