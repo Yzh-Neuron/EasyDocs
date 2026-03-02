@@ -128,3 +128,23 @@ EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将
 
         > 引用一段话。
     ```
+
+## 本地测试
+1. 如何预览生成后的效果
+    ```pwsh
+    # 可以查询 C:\Users\Yzh\.dotnet\tools 的路径，确认工具安装位置
+    dotnet tool list -g
+
+    # 安装文档生成工具（第一次需要执行安装）
+    dotnet tool install -g Ater.EasyDocs
+
+    # 生成文档：源文件在 Content 文件夹，输出到 WebApp 文件夹
+    ezdoc build .\Content .\WebApp
+
+    # 安装本地预览服务器
+    dotnet tool install -g dotnet-serve
+
+    # 进入输出目录并启动预览
+    cd .\WebSite
+    dotnet serve
+    ```

@@ -1,0 +1,15 @@
+﻿{
+  "Name": "EasyDocs",
+  "Description": "My Blog - Powered by EasyDocs",
+  "Keywords": null,
+  "AuthorName": "Ater",
+  "ContetPath": "./Content",
+  "OutputPath": "./WebSite",
+  "Icon": null,
+  "Logo": null,
+  "BaseHref": "/",
+  "Domain": null,
+  "RepositoryUrl": null,
+  "Branch": "main",
+  "DocInfos": []
+}

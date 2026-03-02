@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="搭建个人博客" />
+    <meta name="keywords" content="搭建个人博客,EasyDocs,Ater,blog,docs,documentation" />
+    <meta name="author" content="Ater" />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content="EasyDocs" />
+    <meta name="application-name" content="EasyDocs" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href="/blogs/如何使用EasyDocs搭建个人博客.html" />
+    <meta property="og:site_name" content="EasyDocs" />
+    <meta property="og:title" content="搭建个人博客" />
+    <meta property="og:description" content="My Blog - Powered by EasyDocs" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="/blogs/如何使用EasyDocs搭建个人博客.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="搭建个人博客" />
+    <meta name="twitter:description" content="My Blog - Powered by EasyDocs" />
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/markdown.css">
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <script src="/js/markdown.js"></script>
+    <title>搭建个人博客-EasyDocs</title>
+    
+</head>
+<body class="site-body">
+    <div class="layout-container page-content content-layout">
+        <div class="content-side content-side-right">
+        <div class="mt-1 sticky top-2">
+  <span class="text">
+    last update 
+  </span>
+  <br>
+  <small>2026-03-02 22:40</small>
+</div>
+        </div>
+        <div class="content-main markdown-content">
+        <h1 id="搭建个人博客">搭建个人博客</h1>
+<p>你是否想拥有自己的技术博客，或者文档站点？本工具将帮助你生成博客和文档的纯静态站点，让你可以轻松部署到任意位置。</p>
+<p>EasyDocs 是一个开源项目，托管在 Github 上，可通过以下步骤将项目 Clone（或 Fork）到自己的 Github 仓库，快速搭建专属静态博客 / 文档站。</p>
+<h2 id="搭建过程">搭建过程</h2>
+<ol>
+<li><p>获取 EasyDocs 项目源码
+打开 EasyDocs 的 Github 仓库页面，地址为：(<a href="https://github.com/AterDev/EasyDocs/">https://github.com/AterDev/EasyDocs/</a>)
+<img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E7%82%B9%E5%87%BBTag.png" alt="show" />
+<img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E4%B8%8B%E8%BD%BD%E4%B8%80%E4%B8%AA%E5%8F%91%E5%B8%83%E7%89%88%E6%9C%AC.png" alt="show" />
+<img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png" alt="show" /></p>
+</li>
+<li><p>修改webinfo.json配置文件
+找到项目根目录的webinfo.json文件，根据自身需求修改配置项，关键项需严格按要求配置，代码如下：</p>
+<div class="language-json"><pre>
+{
+  <span class="jsonKey">&quot;Name&quot;</span>: <span class="jsonString">&quot;YZH&quot;</span>,// 博客名称，显示在主页顶部导航栏
+  <span class="jsonString">&quot;Description&quot;</span>: <span class="jsonString">&quot;工作笔记&quot;</span>,// 博客说明，显示在主页顶部中间位置
+  <span class="jsonString">&quot;AuthorName&quot;</span>: <span class="jsonString">&quot;小严&quot;</span>,// 作者名称，显示在博客列表页文章旁
+  <span class="jsonString">&quot;BaseHref&quot;</span>: <span class="jsonString">&quot;/EasyDocs/&quot;</span>,// 【重要】务必与Github仓库名称保持一致，生成站点时会自动添加到路径前缀
+  <span class="jsonString">&quot;Branch&quot;</span>: <span class="jsonString">&quot;master&quot;</span>,// 部署分支，保持默认即可
+  <span class="jsonString">&quot;Logo&quot;</span>: <span class="jsonString">&quot;logo.png&quot;</span>,// 博客logo图片，放置在项目根目录
+  <span class="jsonString">&quot;ContentPath&quot;</span>: <span class="jsonString">&quot;./Content&quot;</span>,// markdown文档存放根路径，工具会自动扫描该目录下所有md文件生成站点
+  <span class="jsonString">&quot;OutputPath&quot;</span>: <span class="jsonString">&quot;./WebApp&quot;</span>,// 静态站点生成输出路径，保持默认即可
+  <span class="jsonString">&quot;Domain&quot;</span>: <span class="jsonString">&quot;https://Yzh-Neuron.github.io/&quot;</span>, // 自定义域名，生成站点地图sitemap使用，无自定义域名则留空
+  <span class="jsonString">&quot;Keywords&quot;</span>: <span class="jsonString">&quot;docs,blog,EasyDocs&quot;</span>// 站点关键词，用于SEO优化
+}
+</pre></div>
+</li>
+<li><p>修改 GitHub Actions 部署配置文件
+在__./EasyDocs/.github/workflows__文件路径下找到static.yml配置文件，按以下内容修改，实现代码推送后的自动化构建与部署：</p>
+<div class="language-yml"><pre>
+<span class="keyword">name</span>: Deploy static content to Pages
+  <span class="keyword">on</span>:
+    <span class="keyword">push</span>:
+      <span class="keyword">branches</span>: [&quot;<span class="string">master</span>&quot;]          # 推送到 master 分支时触发
+    <span class="keyword">workflow_dispatch</span>:               # 支持手动触发
+  <span class="keyword">permissions</span>:
+    <span class="keyword">contents</span>: read
+    <span class="keyword">pages</span>: write
+    <span class="keyword">id-token</span>: write
+  <span class="keyword">concurrency</span>:
+    <span class="keyword">group</span>: &quot;<span class="string">pages</span>&quot;
+    <span class="keyword">cancel-in-progress</span>: false
+  <span class="keyword">jobs</span>:
+    <span class="keyword">deploy</span>:
+      <span class="keyword">environment</span>:
+        <span class="keyword">name</span>: github-pages
+        <span class="keyword">url</span>: ${{ steps.deployment.outputs.page_url }}
+      <span class="keyword">runs-on</span>: ubuntu-latest
+      <span class="keyword">steps</span>:
+        - name: Checkout
+          <span class="keyword">uses</span>: actions/checkout@v4
+        - name: Setup Pages
+          <span class="keyword">uses</span>: actions/configure-pages@v4
+        - name: Setup .NET
+          <span class="keyword">uses</span>: actions/setup-dotnet@v4
+          <span class="keyword">with</span>:
+            <span class="keyword">dotnet-version</span>: &#39;8.x&#39;
+        - name: Install EasyBlog tool
+          <span class="keyword">run</span>: dotnet tool install -g Ater.EasyBlog --version 1.0.0
+        - name: Build site
+          <span class="keyword">run</span>: ezblog build ./Content ./site
+        - name: Upload artifact
+          <span class="keyword">uses</span>: actions/upload-pages-artifact@v3
+          <span class="keyword">with</span>:
+            <span class="keyword">path</span>: &#39;site/&#39;
+        - name: Deploy to GitHub Pages
+          <span class="keyword">id</span>: deployment
+          <span class="keyword">uses</span>: actions/deploy-pages@v4
+</pre></div>
+</li>
+<li><p>创建 Github 仓库并启用 GitHub Pages</p>
+<ul>
+<li>登录 Github 账号，点击创建新的仓库。<br></li>
+<li>仓库名称必须与webinfo.json配置文件中的BaseHref保持一致（如上例中为 EasyDocs）。<br></li>
+<li>仓库创建完成后，进入仓库设置页面，找到 GitHub Pages 功能并开启。<br></li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+仓库名字和webinfo.json配置文件中的BaseHref保持一致（如上例中为EasyDocs）。</p>
+</blockquote>
+<p><img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAEasyDocs%E4%BB%93%E5%82%A8.png" alt="show" /></p>
+<p><img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E5%BC%80%E5%90%AFGitHubPages.png" alt="show" /></p>
+</li>
+<li><p>提交代码并等待自动化部署</p>
+<p>将本地修改后的所有配置文件、项目文件提交并推送到 Github 仓库的 master 分支，随后进入仓库的 Actions 页面，可查看工作流执行状态。</p>
+<p><img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%B7%B2%E7%BB%8F%E5%BC%80%E5%A7%8B%E8%A7%A6%E5%8F%91%EF%BC%8C%E7%AD%89%E5%BE%85%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png" alt="show" /></p>
+<p><img src="%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8EasyDocs%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/%E5%AE%8C%E6%88%90%E9%83%A8%E7%BD%B2.png" alt="show" /></p>
+<p>等待工作流执行完成后，即可通过 GitHub Pages 分配的地址访问自己的个人博客 / 文档站。</p>
+</li>
+</ol>
+<h2 id="添加一个博客">添加一个博客</h2>
+<p>博客内容存放在（<strong>./ Content / blogs</strong> ）目录下，每篇博客对应一个 Markdown 文件。添加新博客的步骤如下：</p>
+<ol>
+<li><p>创建 Markdown 文件
+在 Content 文件夹中新建一个 .md 文件，例如 my-first-blog.md。文件名将作为 URL 的一部分，建议使用英文、数字和连字符。</p>
+</li>
+<li><p>编写博客内容
+文件内容采用 Markdown 语法，示例：</p>
+<div class="language-markdown"><pre>
+<span class="markdownHeader">---</span>
+<span class="markdownCode">    title: 我的第一篇博客
+    date: 2025-03-02
+    tags: [教程, EasyDocs]
+    ---
+    # 欢迎！
+    这是使用 EasyDocs 发布的第一篇文章。  
+    你可以在这里写任何内容，支持 **加粗**、*斜体*、[链接](https://example.com) 等标准 Markdown 语法。
+    ## 插入图片
+    ![图片说明](图片路径.png)
+    &gt; 引用一段话。</span>
+</pre></div>
+</li>
+</ol>
+<h2 id="本地测试">本地测试</h2>
+<pre><code>```pwsh
+# 可以查询 C:\Users\Yzh\.dotnet\tools 的路径，确认工具安装位置
+dotnet tool list -g
+
+# 安装文档生成工具（第一次需要执行安装）
+dotnet tool install -g Ater.EasyDocs
+
+# 生成文档：源文件在 Content 文件夹，输出到 WebApp 文件夹
+ezdoc build .\Content .\WebApp
+
+# 安装本地预览服务器
+dotnet tool install -g dotnet-serve
+
+# 进入输出目录并启动预览
+cd .\WebApp
+dotnet serve
+```
+</code></pre>
+
+        </div>
+        <div class="content-side">
+            <div class="toc-block toc-sticky">
+ <p class="toc-title">TOC</p>
+<ul class="toc">
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#搭建过程'">搭建过程</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#添加一个博客'">添加一个博客</a>
+</li>
+<li>
+  <a href="javascript:void(0);" onclick="window.location.href=window.location.href.split('#')[0]+'#本地测试'">本地测试</a>
+</li>
+</ul>
+</div>
+
+        </div>
+    </div>
+    <div class="site-footer">
+      <div class="layout-container">
+        <p class="footer-text">
+        EasyDocs
+        <a class="footer-link" target="_blank" href="https://github.com/AterDev/EasyBlog">Powered by EasyDocs</a>
+        </p>
+      </div>
+    </div>
+</body>
+</html>
